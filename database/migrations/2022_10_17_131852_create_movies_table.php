@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId("user_id")->constrained();
+            $table->string('title');
             $table->string('director');
             $table->text('description');
             $table->string('image');
-            $table->float('budget');
-            $table->float('box office');
+            $table->integer('budget');
+            $table->integer('box office');
         });
     }
 

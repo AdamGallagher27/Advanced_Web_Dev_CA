@@ -16,9 +16,18 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
+    //  index function gets all movies from the database
     public function index()
     {
 
+        // variable to hold the movies from DB
+        $movies = Movie::where("user_id", Auth::id())->latest("updated_at")->paginate(5);
+
+        // returning the view for index with the movies variable
+        return view("movies/index")->with("movies", $movies);
        
     }
 

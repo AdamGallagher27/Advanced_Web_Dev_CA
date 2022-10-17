@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+// have to get movie controller
+use App\Http\Controllers\MovieController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,5 +24,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+// route for the index function
+Route::get('/index', [MovieController::class, "index"])->middleware(["auth"]);
 
 require __DIR__.'/auth.php';
