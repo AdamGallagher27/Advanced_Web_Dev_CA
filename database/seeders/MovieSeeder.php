@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Movie;
 
 class MovieSeeder extends Seeder
 {
@@ -14,6 +15,7 @@ class MovieSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // calls factory 50 times
+        Movie::factory()->times(50)->create();
     }
 }
