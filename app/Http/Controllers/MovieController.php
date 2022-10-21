@@ -54,14 +54,14 @@ class MovieController extends Controller
     {
 
         // validating form input from create()
-        // $request->validate( [
-        //     "title" => "required|max:120",
-        //     "director" => "required|max:120",
-        //     "description" => "required",
-        //     "image" => "required",
-        //     "budget" => "required",
-        //     "box office" => "required"
-        // ]);
+        $request->validate( [
+            "title" => "required|max:120",
+            "director" => "required|max:120",
+            "description" => "required",
+            "image" => "required",
+            "budget" => "required",
+            "boxOffice" => "required"
+        ]);
 
         // adding data to movie table
         Movie::create([
