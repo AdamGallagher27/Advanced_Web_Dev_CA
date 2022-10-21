@@ -30,4 +30,10 @@ Route::get('/dashboard', function () {
 // route for the index function
 Route::get('/index', [MovieController::class, "index"])->middleware(["auth"]);
 
+// route for the create function
+Route::get('/create', [MovieController::class, "create"])->middleware(["auth"]);
+
+
+Route::resource("/movies", MovieController::class)->middleware(["auth"]);
+
 require __DIR__.'/auth.php';

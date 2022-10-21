@@ -38,7 +38,10 @@ class MovieController extends Controller
      */
     public function create()
     {
-        
+
+        // returns view for create form
+        // before its sent to the store function
+        return view("movies/create");
     }
 
     /**
@@ -49,7 +52,7 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-
+        return view("movies/store");
         
     }
 
