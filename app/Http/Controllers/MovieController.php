@@ -52,7 +52,31 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        return view("movies/store");
+
+        // validating form input from create()
+        // $request->validate( [
+        //     "title" => "required|max:120",
+        //     "director" => "required|max:120",
+        //     "description" => "required",
+        //     "image" => "required",
+        //     "budget" => "required",
+        //     "box office" => "required"
+        // ]);
+
+        // adding data to movie table
+        Movie::create([
+            "user_id" => Auth::id(),
+            "title" => $request->title,
+            "director" => $request->director,
+            "description" => $request->description,
+            "image" => $request->image,
+            "budget" => $request->budget,
+            "box office" => $request->boxOffice,
+        ]);
+
+
+        // return to movies / index
+        return to_route("movies.index");
         
     }
 
