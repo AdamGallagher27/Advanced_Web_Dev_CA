@@ -71,7 +71,7 @@ class MovieController extends Controller
             "description" => $request->description,
             "image" => $request->image,
             "budget" => $request->budget,
-            "box_office" => $request->boxOffice,
+            "box_office" => $request->box_office,
         ]);
 
 

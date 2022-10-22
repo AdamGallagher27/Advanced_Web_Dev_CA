@@ -13,7 +13,7 @@
                     {{-- image is a string right now will fix this later --}}
                     <x-textarea name="image" rows="10" class="w-full mt-6" placeholder="image..."></x-textarea>
                     <x-text-input type="text" name="budget" class="w-full " placeholder="budget"></x-text-input>
-                    <x-text-input type="text" name="boxOffice" class="w-full " placeholder="box office"></x-text-input>
+                    <x-text-input type="text" name="box_office" class="w-full " placeholder="box office"></x-text-input>
 
                     <x-primary-button name="submit" type="Submit" class="mt-6">Save Movie</x-primary-button>
                     <input type="hidden" name="_token" value="{{ Session::token() }}"> 
