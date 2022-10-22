@@ -15,8 +15,15 @@
             <a href="{{ route('movies.create') }}" class="btn-link btn-lg mb-2">+ New Movie</a>
             @forelse ($movies as $movie)
                 <div class="my-6 p-6 bg-white border-b border-gray-200 mt-6 shadow-sm sm:rounded-lg">
-                {{ $movie->title }}
-                    
+                    <h2 class="font-bold text-2xl">
+                            {{ $movie->title }}
+                    </h2>
+                    <span class="mt-2">
+                        {{ $movie->director }}
+                    </span> 
+                    <span class="block mt-4 text-sm opacity-70">
+                        {{ $movie->created_at->diffForHumans() }}
+                    </span>
                 </div>
                 @empty
                 <p>You have no movies yet.</p>
