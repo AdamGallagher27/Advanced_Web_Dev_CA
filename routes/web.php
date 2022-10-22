@@ -33,6 +33,10 @@ Route::get('/index', [MovieController::class, "index"])->middleware(["auth"]);
 // route for the create function
 Route::get('/create', [MovieController::class, "create"])->middleware(["auth"]);
 
+// route for the show function
+Route::get('/show', [MovieController::class, "show"])->middleware(["auth"]);
+
+
 
 Route::resource("/movies", MovieController::class)->middleware(["auth"]);
 
