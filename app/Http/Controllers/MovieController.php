@@ -60,7 +60,7 @@ class MovieController extends Controller
             "description" => "required",
             "image" => "required",
             "budget" => "required",
-            "boxOffice" => "required"
+            "box_office" => "required"
         ]);
 
         // adding data to movie table
@@ -71,7 +71,7 @@ class MovieController extends Controller
             "description" => $request->description,
             "image" => $request->image,
             "budget" => $request->budget,
-            "box office" => $request->boxOffice,
+            "box_office" => $request->boxOffice,
         ]);
 
 
@@ -88,7 +88,12 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        
+
+        // get movie from db with the id passed in
+        $movie = Movie::where("id", $id)->where("user_id", Auth::id())->firstOrFail();
+
+        // returns the show view with the movie variable
+        return view("movies/show")->with("movie", $movie);
     }
 
     /**

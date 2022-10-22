@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('image');
             $table->integer('budget');
-            $table->integer('box office');
+            $table->integer('box_office');
         });
     }
 
