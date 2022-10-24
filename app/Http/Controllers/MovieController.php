@@ -102,10 +102,9 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Movie $movie)
     {
-       
-
+        return view('movies.edit')->with("movie", $movie);
     }
 
     /**
@@ -115,9 +114,31 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Movie $movie)
     {
+        // validating form input from edit()
+        $request->validate( [
+            "title" => "required|max:120",
+            "director" => "required|max:120",
+            "description" => "required",
+            "image" => "required",
+            "budget" => "required",
+            "box_office" => "required"
+        ]);
+
+
+        // updating data in database
+        $movie->update([
+            "title" => $request->title,
+            "director" => $request->director,
+            "description" => $request->description,
+            "image" => $request->image,
+            "budget" => $request->budget,
+            "box_office" => $request->box_office
+        ]);
         
+
+        return to_route("movies.show", $movie);
     }
 
     /**
