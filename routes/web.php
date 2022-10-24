@@ -36,8 +36,12 @@ Route::get('/create', [MovieController::class, "create"])->middleware(["auth"]);
 // route for the show function
 Route::get('/show', [MovieController::class, "show"])->middleware(["auth"]);
 
+// route for the destroy function
+Route::get('/destroy', [MovieController::class, "destroy"])->middleware(["auth"]);
 
 
+
+// resource route for crud opperations
 Route::resource("/movies", MovieController::class)->middleware(["auth"]);
 
 require __DIR__.'/auth.php';
