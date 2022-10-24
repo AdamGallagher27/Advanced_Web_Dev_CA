@@ -147,9 +147,22 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Movie $movie)
     {
-        //
+
+        // user validation
+        // if user isnt authenticated throw 403 error
+        if($movie->user_id != Auth::id()) {
+            return abort(403);
+        }
+
+
+        // delete selected movie
+        $movie->delete();
+
+        // return to view all movie route
+        return to_route("movies.index");
+
     }
 }
 
