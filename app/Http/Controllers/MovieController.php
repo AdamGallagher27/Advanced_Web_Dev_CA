@@ -53,15 +53,31 @@ class MovieController extends Controller
     public function store(Request $request)
     {
 
+
+
+
         // validating form input from create()
         $request->validate( [
             "title" => "required|max:120",
             "director" => "required|max:120",
             "description" => "required",
-            "image" => "required",
+
+            // image must be a file
+            "image" => "file|image",
             "budget" => "required",
             "box_office" => "required"
         ]);
+
+        $image = $request->file("image");
+        // gets the correct file extension (jpeg, png) 
+        $extension = $image->getClientOriginalExtension();
+
+        // creates unique filename for image 
+        $fileName = date("Y-m-d-His") . "_" . $request->input("title") . "." . $extension;
+
+        // stores image in public / images folder
+        $path = $image->storeAs("public/images", $fileName);
+
 
         // adding data to movie table
         Movie::create([
@@ -69,7 +85,7 @@ class MovieController extends Controller
             "title" => $request->title,
             "director" => $request->director,
             "description" => $request->description,
-            "image" => $request->image,
+            "image" => $fileName,
             "budget" => $request->budget,
             "box_office" => $request->box_office,
         ]);
