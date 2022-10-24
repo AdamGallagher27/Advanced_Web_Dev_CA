@@ -13,8 +13,10 @@
             <form action=" {{ route('movies.destroy', $movie) }}" method="POST">
                 {{-- delete method for form --}}
                 @method("delete")
+
                 {{-- requiered crsf token  --}}
                 @csrf
+
                 {{-- button for delete --}}
                 <button type="submit" class="btn btn-danger ml-4" onclick="return confirm('are you sure you want to delete')">Delete</button>
             </form>
@@ -25,8 +27,9 @@
                 <h2 class="font-bold text-2xl">
                     {{ $movie->title }}
                 </h2>
-                {{-- image will have file location in future --}}
-                <img src=" {{ $movie->image }} " alt="">
+                {{-- gets image from public folder --}}
+                <img src=" {{ asset('storage/images/' . $movie->image)  }} " alt="movie poster">
+
                 <ul>
                     <li> Directed By : {{ $movie->director }}</li>
                     <li>Budget: {{ $movie->budget }}</li>
