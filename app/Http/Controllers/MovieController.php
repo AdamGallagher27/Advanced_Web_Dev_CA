@@ -107,6 +107,7 @@ class MovieController extends Controller
 
         // get movie from db with the id passed in
         $movie = Movie::where("id", $id)->where("user_id", Auth::id())->firstOrFail();
+        
 
         // returns the show view with the movie variable
         return view("movies/show")->with("movie", $movie);
