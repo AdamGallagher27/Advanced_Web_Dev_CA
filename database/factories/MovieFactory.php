@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-// // work around for creating random foreign keys
-// $users = User::all();
-// $userCount = $users->count();
+
 
 
 /**
@@ -22,11 +20,6 @@ class MovieFactory extends Factory
      * @return array<string, mixed>
      */
 
-    // public function getUser() {
-    //     // work around for creating random foreign keys
-    //     $users = User::all();
-    //     return $users->count();
-    // }
 
 
     public function definition()
@@ -36,11 +29,16 @@ class MovieFactory extends Factory
             "title" => $this->faker->word,
             "director" => $this->faker->name,
             "description" => $this->faker->text(50),
-            "image" => $this->faker->word,
+
+            // faker->image() does not work
+            // "image" => $this->faker->image('public/storage/images',350,500, true, true),
+            
+            // faker->imageUrl() works but sends links to db not image path
+            "image" => $this->faker->imageUrl(350,500, "movie"),
+
             "budget" => $this->faker->numberBetween(1000000, 10000000),
-            "box office" => $this->faker->numberBetween(1000000, 10000000),
-            // gets random user id for foreign key
-            // 'user_id' => $this->faker->numberBetween(1, getUser()),
+            "box_office" => $this->faker->numberBetween(1000000, 10000000),
+            'user_id' => $this->faker->randomElement(User::pluck("id"))
 
         ];
     }
