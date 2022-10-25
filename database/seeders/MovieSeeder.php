@@ -15,7 +15,7 @@ class MovieSeeder extends Seeder
      */
     public function run()
     {
-        // calls factory 50 times
-        Movie::factory()->times(50)->create();
+        // seeder creates 50 movies 
+        \App\Models\Movie::factory()->times(50)->create();
     }
 }
