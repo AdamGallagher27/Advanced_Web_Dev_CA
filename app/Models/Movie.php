@@ -9,6 +9,11 @@ class Movie extends Model
 {
     use HasFactory;
 
+    // this is the relationship for user and movies (1:M)
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     // prevents mass assignment error
     protected $guarded = [];
