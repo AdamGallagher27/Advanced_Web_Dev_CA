@@ -27,9 +27,28 @@
                 <h2 class="font-bold text-2xl">
                     {{ $movie->title }}
                 </h2>
-                {{-- gets image from public folder --}}
-                <img src=" {{ asset('storage/images/' . $movie->image)  }} " alt="movie poster">
 
+
+
+                {{-- this adds the image to show view --}}
+                {{--
+                    faker uses imageUrl() in seeder so images are stored in db as links to images
+                    if a user creates image it is saved in public folder
+                    the images being saved in two ways causes problems when loading images
+                    as some images are file paths when others are Urls.
+
+                    this is my work around...
+                --}}
+
+                {{-- this if statement checks if their is an image saved in public folder --}}
+                @if(file_exists(public_path('storage/images/' . $movie->image)))
+                    {{-- and returns the image from the public folder for image src --}}
+                    <img src="{{ asset('storage/images/' . $movie->image) }}" alt="Movie poster">
+                @else
+                    {{-- else use faker image url for image src --}}
+                    <img src="{{ $movie->image }}" alt="Movie poster">
+                @endif
+                
                 <ul>
                     <li> Directed By : {{ $movie->director }}</li>
                     <li>Budget: {{ $movie->budget }}</li>
