@@ -20,17 +20,17 @@
                     {{-- this lets us have a put method --}}
                     @method("put")
 
-                    <x-text-input type="text" name="title" class="w-full " placeholder="Title" value="{{ $movie->title }}"></x-text-input>
-                    <x-text-input type="text" name="director" class="w-full " placeholder="Director" value="{{ $movie->director }}"></x-text-input>
-                    <x-textarea name="description" rows="10" class="w-full mt-6" placeholder="Description..." value="{{ $movie->description }}"></x-textarea>
+                    <x-text-input type="text" name="title" class="w-full " placeholder="Title" :value="@old('title', $movie->title)"></x-text-input>
+                    <x-text-input type="text" name="director" class="w-full " placeholder="Director" :value="@old('director', $movie->director)"></x-text-input>
+                    <x-textarea name="description" rows="10" class="w-full mt-6" placeholder="Description..." :value="@old('description', $movie->description)"></x-textarea>
 
                     {{-- image is a string right now will fix this later --}}
-                    <x-textarea name="image" rows="10" class="w-full mt-6" placeholder="image..." value="{{ $movie->image }}"></x-textarea>
-                    <x-text-input type="text" name="budget" class="w-full " placeholder="budget" value="{{ $movie->budget }}"></x-text-input>
-                    <x-text-input type="text" name="box_office" class="w-full " placeholder="box office" value="{{ $movie->box_office }}"></x-text-input>
+                    <x-textarea name="image" rows="10" class="w-full mt-6" placeholder="image..." :value="@old('image', $movie->image)"></x-textarea>
+                    <x-text-input type="text" name="budget" class="w-full " placeholder="budget" :value="@old('budget', $movie->budget)"></x-text-input>
+                    <x-text-input type="text" name="box_office" class="w-full " placeholder="box office" :value="@old('box_office', $movie->box_office)"></x-text-input>
 
                     <x-primary-button name="submit" type="Submit" class="mt-6">Save Movie</x-primary-button>
-                    <input type="hidden" name="_token" value="{{ Session::token() }}"> 
+                    <input type="hidden" name="_token" value="{{ Session::token() }}">
                 </form>
                 
             </div>
