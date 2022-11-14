@@ -14,12 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // seeder creates 10 users
-        \App\Models\User::factory(10)->create();
+        $this->call(UserSeeder::class);
+        $this->call(RoleSeeder::class);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        
+        $this->call(MovieSeeder::class);
     }
 }
