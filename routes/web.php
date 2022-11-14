@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 // have to get movie controller
-use App\Http\Controllers\MovieController;
+use App\Http\Controllers\Admin\MovieController as AdminMovieController;
+use App\Http\Controllers\User\MovieController as UserMovieController;
 
 
 /*
@@ -22,26 +23,16 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return redirect('/../index');
+    return view('/dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-
-// route for the index function
-Route::get('/index', [MovieController::class, "index"])->middleware(["auth"]);
-
-// route for the create function
-Route::get('/create', [MovieController::class, "create"])->middleware(["auth"]);
-
-// route for the show function
-Route::get('/show', [MovieController::class, "show"])->middleware(["auth"]);
-
-// route for the destroy function
-Route::get('/destroy', [MovieController::class, "destroy"])->middleware(["auth"]);
-
-
-
-// resource route for crud opperations
-Route::resource("/movies", MovieController::class)->middleware(["auth"]);
-
 require __DIR__.'/auth.php';
+
+
+
+// creates all routes for the admin user
+Route::resource("/admin/movies", AdminMovieController::class)->middleware(["auth"])->names("admin.movies");
+
+// creates all routes for the ordinary user
+Route::resource("/user/movies", UserMovieController::class)->middleware(["auth"])->names("user.movies");
