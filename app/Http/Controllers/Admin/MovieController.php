@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Movie;
 
@@ -23,11 +23,13 @@ class MovieController extends Controller
     public function index()
     {
 
-        // variable to hold the movies from DB
-        $movies = Movie::where("user_id", Auth::id())->latest("updated_at")->paginate(5);
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
 
-        // returning the view for index with the movies variable
-        return view("movies/index")->with("movies", $movies);
+        $movies = Movie::paginate(10);
+
+        return view("Admin.movies.index")->with("movies", $movies);
        
     }
 
@@ -39,9 +41,13 @@ class MovieController extends Controller
     public function create()
     {
 
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
         // returns view for create form
         // before its sent to the store function
-        return view("movies/create");
+        return view("Admin.movies.create");
     }
 
     /**
