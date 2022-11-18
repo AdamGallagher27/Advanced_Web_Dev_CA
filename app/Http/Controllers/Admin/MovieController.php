@@ -27,7 +27,7 @@ class MovieController extends Controller
         $user = Auth::user();
         $user->authorizeRoles("admin");
 
-        $movies = Movie::paginate(10);
+        $movies = Movie::where("user_id", Auth::id())->paginate(10);
 
         return view("Admin.movies.index")->with("movies", $movies);
        
@@ -98,7 +98,7 @@ class MovieController extends Controller
 
 
         // return to movies / index
-        return to_route("movies.index");
+        return to_route("admin.movies.index");
         
     }
 
@@ -112,7 +112,7 @@ class MovieController extends Controller
     {
 
         // get movie from db with the id passed in
-        $movie = Movie::where("id", $id)->where("user_id", Auth::id())->firstOrFail();
+        $movie = Movie::where("id", $id)->firstOrFail();
         
 
         // returns the show view with the movie variable
