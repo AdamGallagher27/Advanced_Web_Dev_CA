@@ -116,7 +116,7 @@ class MovieController extends Controller
         
 
         // returns the show view with the movie variable
-        return view("movies/show")->with("movie", $movie);
+        return view("admin/movies/show")->with("movie", $movie);
     }
 
     /**
@@ -127,7 +127,7 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        return view('movies.edit')->with("movie", $movie);
+        return view('admin.movies.edit')->with("movie", $movie);
     }
 
     /**
@@ -161,7 +161,7 @@ class MovieController extends Controller
         ]);
         
 
-        return to_route("movies.show", $movie);
+        return to_route("admin.movies.show", $movie);
     }
 
     /**
@@ -184,7 +184,7 @@ class MovieController extends Controller
         $movie->delete();
 
         // return to view all movie route
-        return to_route("movies.index");
+        return to_route("admin.movies.index");
 
     }
 }

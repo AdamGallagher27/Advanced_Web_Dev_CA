@@ -28,7 +28,7 @@ class MovieController extends Controller
         $movies = Movie::where("user_id", Auth::id())->latest("updated_at")->paginate(5);
 
         // returning the view for index with the movies variable
-        return view("movies/index")->with("movies", $movies);
+        return view("user/movies/index")->with("movies", $movies);
        
     }
 
@@ -48,7 +48,7 @@ class MovieController extends Controller
         
 
         // returns the show view with the movie variable
-        return view("movies/show")->with("movie", $movie);
+        return view("user/movies/show")->with("movie", $movie);
     }
 
     
