@@ -8,9 +8,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- edit button sends movie to edit route (with movie variable)--}}
-            <a href="{{ route('movies.edit', $movie) }}" class="btn-link btn-lg mb-2">Edit</a>
+            <a href="{{ route('admin.movies.edit', $movie) }}" class="btn-link btn-lg mb-2">Edit</a>
             {{-- delete button to remove movie --}}
-            <form action=" {{ route('movies.destroy', $movie) }}" method="POST">
+            <form action=" {{ route('admin.movies.destroy', $movie) }}" method="POST">
                 {{-- delete method for form --}}
                 @method("delete")
 
