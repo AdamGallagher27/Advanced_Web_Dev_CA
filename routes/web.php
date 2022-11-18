@@ -30,6 +30,8 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 
+// home route
+Route::get("/home", [App\Http\Controllers\HomeController::class, "index"])->name("home.index");
 
 // creates all routes for the admin user
 Route::resource("/admin/movies", AdminMovieController::class)->middleware(["auth"])->names("admin.movies");
