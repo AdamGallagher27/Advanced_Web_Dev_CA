@@ -7,6 +7,15 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            {{-- show success message for update / create --}}
+            @if (session('success'))
+                <div class="mb-4 px-4 py-2 bg-green-100 border border-green-200 text-green">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+
             {{-- edit button sends movie to edit route (with movie variable)--}}
             <a href="{{ route('admin.movies.edit', $movie) }}" class="btn-link btn-lg mb-2">Edit</a>
             {{-- delete button to remove movie --}}
