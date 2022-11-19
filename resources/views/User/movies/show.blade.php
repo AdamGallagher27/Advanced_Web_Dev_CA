@@ -46,7 +46,7 @@
                 {{-- using created_at instead of updated_at to show when it was posted first --}}
                 <span class="block mt-4 text-sm opacity-70">{{ $movie->created_at->diffForHumans() }}</span>
                 {{-- going to make this the user who posted this movie --}}
-                <span class="block mt-4 text-sm opacity-70">Posted By : {{ $movie->user_id }}</span>
+                <span class="block mt-4 text-sm opacity-70">Posted By : {{ $user->name }}</span>
             </div>
         </div>
     </div>
