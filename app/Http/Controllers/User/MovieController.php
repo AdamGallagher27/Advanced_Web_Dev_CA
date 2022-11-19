@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Movie;
+use App\Models\User;
+
 
 
 
@@ -44,11 +46,13 @@ class MovieController extends Controller
     {
 
         // get movie from db with the id passed in
-        $movie = Movie::where("id", $id)->where("user_id", Auth::id())->firstOrFail();
+        $movie = Movie::where("id", $id)->firstOrFail();
         
+        // get the user from database
+        $user = User::where("id", $movie->user_id)->firstOrFail();
 
         // returns the show view with the movie variable
-        return view("movies/show")->with("movie", $movie);
+        return view("user/movies/show")->with("movie", $movie)->with("user", $user);
     }
 
     
