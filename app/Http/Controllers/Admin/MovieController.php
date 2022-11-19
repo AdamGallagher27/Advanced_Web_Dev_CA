@@ -98,7 +98,7 @@ class MovieController extends Controller
 
 
         // return to movies / index
-        return to_route("admin.movies.index");
+        return to_route("admin.movies.index")->with('success', 'your movie was created successfully');;
         
     }
 
@@ -161,7 +161,7 @@ class MovieController extends Controller
         ]);
         
 
-        return to_route("admin.movies.show", $movie);
+        return to_route("admin.movies.show", $movie)->with('success', 'your movie was updated successfully');
     }
 
     /**
