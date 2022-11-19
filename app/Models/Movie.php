@@ -15,6 +15,12 @@ class Movie extends Model
         return $this->belongsTo(User::class);
     }
 
+    // this is the relationship for production and movies (1:M)
+    public function production()
+    {
+        return $this->belongsTo(Production::class);
+    }
+
     // prevents mass assignment error
     protected $guarded = [];
 }
