@@ -32,6 +32,15 @@
                     @enderror
                     <x-text-input type="text" name="box_office" class="w-full " placeholder="box office"></x-text-input>
 
+
+                    {{-- productions drop down --}}
+                    <select class="mt-2" name="productions" id="productions">
+                        @foreach ($productions as $prod)
+                            <option value="{{ $prod->id }}">{{ $prod->title }}</option>
+                        @endforeach
+                    </select>
+
+
                     {{-- select image --}}
                     <p class="mt-6">Select Image</p>
                     @error('image')

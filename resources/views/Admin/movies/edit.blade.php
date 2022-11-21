@@ -53,6 +53,19 @@
                     <x-text-input type="text" name="box_office" class="w-full " placeholder="box office"
                         :value="@old('box_office', $movie->box_office)"></x-text-input>
 
+
+                    {{-- productions drop down --}}
+                    <select class="mt-2" name="productions" id="productions">
+                        @foreach ($productions as $prod)
+                            <option
+                                @if($prod->id == $movie->production_id)
+                                    {{ "selected" }}
+                                @endif
+                            value="{{ $prod->id }}">{{ $prod->title }}</option>
+                        @endforeach
+                    </select>
+            
+
                     <x-primary-button name="submit" type="Submit" class="mt-6">Save Movie</x-primary-button>
                     <input type="hidden" name="_token" value="{{ Session::token() }}">
                 </form>
