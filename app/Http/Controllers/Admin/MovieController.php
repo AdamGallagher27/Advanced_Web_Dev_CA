@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Movie;
 use App\Models\User;
+use App\Models\Production;
+
 
 
 class MovieController extends Controller
@@ -45,9 +47,12 @@ class MovieController extends Controller
         $user = Auth::user();
         $user->authorizeRoles("admin");
 
+        $productions = Production::all();
+
+
         // returns view for create form
         // before its sent to the store function
-        return view("Admin.movies.create");
+        return view("Admin.movies.create")->with("productions", $productions);
     }
 
     /**
@@ -60,8 +65,6 @@ class MovieController extends Controller
     {
 
 
-
-
         // validating form input from create()
         $request->validate( [
             "title" => "required|max:120",
@@ -70,6 +73,7 @@ class MovieController extends Controller
 
             // image must be a file
             "image" => "file|image",
+            "productions" => "required",
             "budget" => "required",
             "box_office" => "required"
         ]);
@@ -92,6 +96,7 @@ class MovieController extends Controller
             "director" => $request->director,
             "description" => $request->description,
             "image" => $fileName,
+            "production_id" => $request->productions,
             "budget" => $request->budget,
             "box_office" => $request->box_office,
         ]);
@@ -117,8 +122,11 @@ class MovieController extends Controller
         // get the user from database
         $user = User::where("id", $movie->user_id)->firstOrFail();
 
+        // get the selected production
+        $production = Production::where("id", $movie->production_id)->firstOrFail();
+
         // returns the show view with the movie / user variable
-        return view("admin/movies/show")->with("movie", $movie)->with("user", $user);
+        return view("admin/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production);
     }
 
     /**
@@ -129,7 +137,11 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        return view('admin.movies.edit')->with("movie", $movie);
+
+        // get all the production companies
+        $productions = Production::all();
+
+        return view('admin.movies.edit')->with("movie", $movie)->with("productions", $productions);
     }
 
     /**
@@ -148,7 +160,8 @@ class MovieController extends Controller
             "description" => "required",
             "image" => "required",
             "budget" => "required",
-            "box_office" => "required"
+            "box_office" => "required",
+            "productions" => "required"
         ]);
 
 
@@ -159,6 +172,7 @@ class MovieController extends Controller
             "description" => $request->description,
             "image" => $request->image,
             "budget" => $request->budget,
+            "production_id" => $request->productions,
             "box_office" => $request->box_office
         ]);
         

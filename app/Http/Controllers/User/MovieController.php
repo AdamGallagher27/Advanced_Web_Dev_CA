@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Movie;
 use App\Models\User;
+use App\Models\Production;
+
 
 
 
@@ -51,8 +53,12 @@ class MovieController extends Controller
         // get the user from database
         $user = User::where("id", $movie->user_id)->firstOrFail();
 
+        // varaible for production company
+        $production = Production::where("id", $movie->production_id)->firstOrFail();
+
+
         // returns the show view with the movie variable
-        return view("user/movies/show")->with("movie", $movie)->with("user", $user);
+        return view("user/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production);
     }
 
     
