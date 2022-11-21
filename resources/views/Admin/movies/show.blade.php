@@ -63,7 +63,8 @@
                 @endif
 
                 <ul>
-                    <li> Directed By : {{ $movie->director }}</li>
+                    <li>Directed By : {{ $movie->director }}</li>
+                    <li>Production Company : {{ $production->title }}</li>
                     <li>Budget: {{ $movie->budget }}</li>
                     <li>Box Office : {{ $movie->box_office }}</li>
                 </ul>
