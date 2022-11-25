@@ -27,7 +27,7 @@ class MovieFactory extends Factory
         return [
             // creates fake data for database
             "title" => $this->faker->word,
-            "director" => $this->faker->name,
+            // "director" => $this->faker->name,
             "description" => $this->faker->text(50),
 
             // faker->image() does not work
