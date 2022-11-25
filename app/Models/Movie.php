@@ -9,6 +9,11 @@ class Movie extends Model
 {
     use HasFactory;
 
+    public function directors(){
+        return $this->belongsToMany(Director::class)->withTimestamps();
+    }
+
+
     // this is the relationship for user and movies (1:M)
     public function user()
     {
