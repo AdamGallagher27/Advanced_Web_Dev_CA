@@ -4,7 +4,7 @@
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
 
                 {{-- variable for testing if $movie is coming through --}}
-                {{-- {{ $movie }} --}}
+                {{ $movie->directors }}
 
                 {{-- sends updated movie to update function --}}
                 <form action="{{ route('admin.movies.update', $movie), 'movie' }} " method="POST">
@@ -26,8 +26,29 @@
                     @error('director')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
-                    <x-text-input type="text" name="director" class="w-full " placeholder="Director"
-                        :value="@old('director', $movie->director)"></x-text-input>
+                    {{-- <x-text-input type="text" name="director" class="w-full " placeholder="Director"
+                        :value="@old('director', $movie->director)"></x-text-input> --}}
+
+                        {{-- prefil selected directors in check boxes --}}
+
+                        {{-- <div class="form-group">
+                            <label for="directors">
+                                <strong>Directors</strong> <br>
+                                @foreach ($directors as $director)
+                                    <input type="checkbox" value="{{ $director->id }}"
+
+                                        @if ($director->id == $movie->directors[$loop->index]->id)
+                                            {{ $loop->index }}
+                                          
+                                        @else
+                                        
+                                        @endif
+    
+                                    name="directors[]">
+                                    {{ $director->name }}
+                                @endforeach
+                            </label>
+                        </div> --}}
 
                     @error('description')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>

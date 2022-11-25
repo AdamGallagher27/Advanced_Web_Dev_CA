@@ -15,7 +15,16 @@
                     @error('director')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
-                    <x-text-input type="text" name="director" class="w-full " placeholder="Director"></x-text-input>
+                    {{-- <x-text-input type="text" name="director" class="w-full " placeholder="Director"></x-text-input> --}}
+                    <div class="form-group">
+                        <label for="directors">
+                            <strong>Directors</strong> <br>
+                            @foreach ($directors as $director)
+                                <input type="checkbox" value="{{ $director->id }}" name="directors[]">
+                                {{ $director->name }}
+                            @endforeach
+                        </label>
+                    </div>
 
                     @error('description')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
