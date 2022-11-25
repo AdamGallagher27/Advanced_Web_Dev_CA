@@ -28,8 +28,8 @@
                             
                     </h2>
                     <span class="mt-2">
-                        {{ $movie->director }}
-                    </span> 
+                        {{ $movie->description }}
+                    </span>
                     <span class="block mt-4 text-sm opacity-70">
                         {{ $movie->created_at->diffForHumans() }}
                     </span>
