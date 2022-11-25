@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Director;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Movie;
 use App\Models\User;
@@ -47,12 +48,13 @@ class MovieController extends Controller
         $user = Auth::user();
         $user->authorizeRoles("admin");
 
+        // get all the production companies and directors
         $productions = Production::all();
-
+        $directors = Director::all();
 
         // returns view for create form
         // before its sent to the store function
-        return view("Admin.movies.create")->with("productions", $productions);
+        return view("Admin.movies.create")->with("productions", $productions)->with("directors", $directors);
     }
 
     /**
@@ -68,7 +70,7 @@ class MovieController extends Controller
         // validating form input from create()
         $request->validate( [
             "title" => "required|max:120",
-            "director" => "required|max:120",
+            "director" => ["required|max:120", "exists:director_id"],
             "description" => "required",
 
             // image must be a file
@@ -90,16 +92,20 @@ class MovieController extends Controller
 
 
         // adding data to movie table
-        Movie::create([
+        $movie = Movie::create([
             "user_id" => Auth::id(),
             "title" => $request->title,
-            "director" => $request->director,
+            // "director" => $request->director,
             "description" => $request->description,
             "image" => $fileName,
             "production_id" => $request->productions,
             "budget" => $request->budget,
             "box_office" => $request->box_office,
         ]);
+
+
+        // add entry to pivot table
+        $movie->directors()->attach($request->directors);
 
 
         // return to movies / index
@@ -125,6 +131,8 @@ class MovieController extends Controller
         // get the selected production
         $production = Production::where("id", $movie->production_id)->firstOrFail();
 
+
+
         // returns the show view with the movie / user variable
         return view("admin/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production);
     }
@@ -141,7 +149,13 @@ class MovieController extends Controller
         // get all the production companies
         $productions = Production::all();
 
-        return view('admin.movies.edit')->with("movie", $movie)->with("productions", $productions);
+        // get all the production companies
+        $directors = Director::all();
+
+
+
+
+        return view('admin.movies.edit')->with("movie", $movie)->with("productions", $productions)->with("directors", $directors);
     }
 
     /**
@@ -156,7 +170,7 @@ class MovieController extends Controller
         // validating form input from edit()
         $request->validate( [
             "title" => "required|max:120",
-            "director" => "required|max:120",
+            // "director" => "required|max:120",
             "description" => "required",
             "image" => "required",
             "budget" => "required",
@@ -168,7 +182,7 @@ class MovieController extends Controller
         // updating data in database
         $movie->update([
             "title" => $request->title,
-            "director" => $request->director,
+            // "director" => $request->director,
             "description" => $request->description,
             "image" => $request->image,
             "budget" => $request->budget,
