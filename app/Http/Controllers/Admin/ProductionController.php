@@ -36,7 +36,15 @@ class ProductionController extends Controller
      */
     public function create()
     {
-        //
+        
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
+        // returns view for create form
+        // before its sent to the store function
+        return view("Admin.productions.create");
+
     }
 
     /**
@@ -47,7 +55,20 @@ class ProductionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validating form input from create()
+        $request->validate( [
+            "title" => "required|max:120",
+        ]);
+
+
+        // add new production company to databse
+        $production = Production::create([
+            "title" => $request->title,
+        ]);
+
+
+        // return to productions / index
+        return to_route("admin.productions.index")->with('success', 'your production company was created successfully');
     }
 
     /**
