@@ -14,4 +14,7 @@ class Production extends Model
         return $this->hasMany(Movie::class);
     }
 
+    // prevents mass assignment error
+    protected $guarded = [];
+
 }
