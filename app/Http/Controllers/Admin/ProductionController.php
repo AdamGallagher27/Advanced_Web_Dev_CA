@@ -110,6 +110,8 @@ class ProductionController extends Controller
             "title" => $request->title,
         ]);
     
+        return to_route("admin.productions.index")->with('success', 'your production was updated successfully');
+
     }
 
     /**
@@ -118,8 +120,18 @@ class ProductionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Production $production)
     {
-        //
+
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
+        // delete selected movie
+        $production->delete();
+
+        // return to view all movie route
+        return to_route("admin.productions.index");
+
     }
 }
