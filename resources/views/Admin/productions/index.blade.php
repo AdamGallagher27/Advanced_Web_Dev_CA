@@ -18,6 +18,7 @@
                 <h2 class="font-bold text-2xl">
                     {{ $prod->title }}                        
                 </h2>
+                <a href="{{ route('admin.productions.edit', $prod) }}" class="btn-link mb-2 mt-5">Edit</a>
                 <span class="block mt-4 text-sm opacity-70">
                     {{ $prod->created_at->diffForHumans() }}
                 </span>
