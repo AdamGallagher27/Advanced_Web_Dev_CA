@@ -22,6 +22,7 @@
                             @foreach ($directors as $director)
                                 <input type="checkbox" value="{{ $director->id }}" name="directors[]">
                                 {{ $director->name }}
+                                <br>
                             @endforeach
                         </label>
                     </div>
