@@ -129,7 +129,7 @@ class MovieController extends Controller
         $user = User::where("id", $movie->user_id)->firstOrFail();
 
         // get the selected production
-        $production = Production::where("id", $movie->production_id)->firstOrFail();
+        $production = Production::where("id", $movie->production_id)->first();
 
 
 
