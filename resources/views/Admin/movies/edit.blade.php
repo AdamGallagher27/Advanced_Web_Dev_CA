@@ -4,7 +4,8 @@
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
 
                 {{-- variable for testing if $movie is coming through --}}
-                {{ $movie->directors }}
+                {{-- {{ $movie->directors }} --}}
+
 
                 {{-- sends updated movie to update function --}}
                 <form action="{{ route('admin.movies.update', $movie), 'movie' }} " method="POST">
@@ -19,36 +20,50 @@
                     @error('title')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
-                    <x-text-input type="text" name="title" class="w-full"
-                        placeholder="Title" :value="@old('title', $movie->title)">
+                    <x-text-input type="text" name="title" class="w-full" placeholder="Title" :value="@old('title', $movie->title)">
                     </x-text-input>
 
-                    @error('director')
+                    @error('directors')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
                     {{-- <x-text-input type="text" name="director" class="w-full " placeholder="Director"
                         :value="@old('director', $movie->director)"></x-text-input> --}}
 
-                        {{-- prefil selected directors in check boxes --}}
 
-                        {{-- <div class="form-group">
-                            <label for="directors">
-                                <strong>Directors</strong> <br>
-                                @foreach ($directors as $director)
-                                    <input type="checkbox" value="{{ $director->id }}"
-
-                                        @if ($director->id == $movie->directors[$loop->index]->id)
-                                            {{ $loop->index }}
-                                          
-                                        @else
-                                        
-                                        @endif
-    
+                    {{-- first attempt --}}
+                    {{-- <div class="form-group">
+                        <label for="directors">
+                            <strong>Directors</strong> <br>
+                            @foreach ($directors as $director)
+                                <input type="checkbox" value="{{ $director->id }}" @checked(isset($movie->directors[$loop->index]->pivot->director_id))
                                     name="directors[]">
-                                    {{ $director->name }}
-                                @endforeach
-                            </label>
-                        </div> --}}
+                                {{ $director->name }}
+                            @endforeach
+                        </label>
+                    </div> --}}
+
+                    {{-- prefil chosen directors --}}
+                    <div class="form-group">
+                        <label for="directors">
+                            <strong>Directors</strong> <br>
+
+                            {{-- loop through all directors and print them on the form --}}
+                            @foreach ($directors as $director)
+                                {{ $director->name }}
+                                <input type="checkbox" value="{{ $director->id }}" name="directors[]"
+                                    {{-- loop over the chosen directors  --}}
+                                    @foreach ($movie->directors as $chosenDir)
+                                        {{-- if chosen director->id == index of parent loop  --}}
+                                        {{-- echo checked --}}
+                                        @if ($loop->parent->index == $chosenDir->id - 1)
+                                            {{ 'checked' }}
+                                        @endif 
+                                    @endforeach
+                                    >
+                                <br>
+                            @endforeach
+                        </label>
+                    </div>
 
                     @error('description')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
@@ -78,14 +93,11 @@
                     {{-- productions drop down --}}
                     <select class="mt-2" name="productions" id="productions">
                         @foreach ($productions as $prod)
-                            <option
-                                @if($prod->id == $movie->production_id)
-                                    {{ "selected" }}
-                                @endif
-                            value="{{ $prod->id }}">{{ $prod->title }}</option>
+                            <option @if ($prod->id == $movie->production_id) {{ 'selected' }} @endif
+                                value="{{ $prod->id }}">{{ $prod->title }}</option>
                         @endforeach
                     </select>
-            
+
 
                     <x-primary-button name="submit" type="Submit" class="mt-6">Save Movie</x-primary-button>
                     <input type="hidden" name="_token" value="{{ Session::token() }}">
