@@ -70,7 +70,7 @@ class MovieController extends Controller
         // validating form input from create()
         $request->validate( [
             "title" => "required|max:120",
-            "director" => ["required|max:120", "exists:director_id"],
+            "directors" => ["required", "exists:directors,id"],
             "description" => "required",
 
             // image must be a file
@@ -153,8 +153,6 @@ class MovieController extends Controller
         $directors = Director::all();
 
 
-
-
         return view('admin.movies.edit')->with("movie", $movie)->with("productions", $productions)->with("directors", $directors);
     }
 
@@ -170,7 +168,7 @@ class MovieController extends Controller
         // validating form input from edit()
         $request->validate( [
             "title" => "required|max:120",
-            // "director" => "required|max:120",
+            "directors" => ["required", "exists:directors,id"],
             "description" => "required",
             "image" => "required",
             "budget" => "required",
@@ -190,6 +188,13 @@ class MovieController extends Controller
             "box_office" => $request->box_office
         ]);
         
+
+
+        // update directors in pivot
+        $chosenDirectors = $request->directors;
+        $movie->directors()->detach();
+        $movie->directors()->attach($chosenDirectors);
+
 
         return to_route("admin.movies.show", $movie)->with('success', 'your movie was updated successfully');
     }
