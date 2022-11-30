@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MovieController as AdminMovieController;
 use App\Http\Controllers\User\MovieController as UserMovieController;
 
+// use production controller
+use App\Http\Controllers\Admin\ProductionController as AdminProductionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +36,11 @@ require __DIR__.'/auth.php';
 // home route
 Route::get("/home", [App\Http\Controllers\HomeController::class, "index"])->name("home.index");
 
-// creates all routes for the admin user
+// creates all routes for the admin users movies
 Route::resource("/admin/movies", AdminMovieController::class)->middleware(["auth"])->names("admin.movies");
+
+// // creates all routes for the admin users productions
+Route::resource("/admin/productions", AdminProductionController::class)->middleware(["auth"])->names("admin.productions");
 
 // creates all routes for the ordinary user
 Route::resource("/user/movies", UserMovieController::class)->middleware(["auth"])->names("user.movies");
