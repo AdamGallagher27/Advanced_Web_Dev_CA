@@ -10,7 +10,7 @@
                     @error('title')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
-                    <x-text-input type="text" name="title" class="w-full " placeholder="Title"></x-text-input>
+                    <x-text-input type="text" name="title" class="w-full " placeholder="Title" :value="@old('title', $production->title)"></x-text-input>
 
                     <x-primary-button name="submit" type="Submit" class="mt-6">Save Production</x-primary-button>
                     <input type="hidden" name="_token" value="{{ Session::token() }}"> 
