@@ -36,7 +36,20 @@
                 @endif
                 
                 <ul>
-                    <li>Directed By : {{ $movie->director }}</li>
+                    <ul>
+                        <li>Directed By :
+                            <table>
+                                <tr>
+                                    @foreach ($movie->directors as $director)
+                                        {{ $director->name }}                            
+                                    @endforeach
+                                </tr>
+                            </table>
+                        </li>
+                        <li>Production Company : {{ $production->title }}</li>
+                        <li>Budget: {{ $movie->budget }}</li>
+                        <li>Box Office : {{ $movie->box_office }}</li>
+                    </ul>
                     <li>Production Company : {{ $production->title }}</li>
                     <li>Budget: {{ $movie->budget }}</li>
                     <li>Box Office : {{ $movie->box_office }}</li>
