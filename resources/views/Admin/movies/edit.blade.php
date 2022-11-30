@@ -8,7 +8,7 @@
 
 
                 {{-- sends updated movie to update function --}}
-                <form action="{{ route('admin.movies.update', $movie), 'movie' }} " method="POST">
+                <form action="{{ route('admin.movies.update', $movie), "movie" }} " method="POST">
 
                     {{-- every form needs this to prevent attacks --}}
                     @csrf
