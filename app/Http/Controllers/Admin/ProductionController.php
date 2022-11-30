@@ -71,16 +71,6 @@ class ProductionController extends Controller
         return to_route("admin.productions.index")->with('success', 'your production company was created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -88,9 +78,15 @@ class ProductionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Production $production)
     {
-        //
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
+        // returns view for create form
+        // before its sent to the store function
+        return view("Admin.productions.edit")->with("production", $production);
     }
 
     /**
@@ -100,9 +96,20 @@ class ProductionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,  Production $production)
     {
-        //
+
+        // validating form input from edit()
+        $request->validate( [
+            "title" => "required|max:120",
+        ]);
+
+
+        // add new production company to databse
+        $production->update([
+            "title" => $request->title,
+        ]);
+    
     }
 
     /**
