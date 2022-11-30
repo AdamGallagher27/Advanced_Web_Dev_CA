@@ -214,6 +214,8 @@ class MovieController extends Controller
             return abort(403);
         }
 
+        // delete directors
+        $movie->directors()->detach();
 
         // delete selected movie
         $movie->delete();
