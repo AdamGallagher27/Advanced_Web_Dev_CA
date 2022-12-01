@@ -30,8 +30,21 @@
                     <p>
                         {{ $director->bio }}
                     </p>
-                    {{-- button for edit director --}}
-                    <a href="{{ route('admin.directors.edit', $director) }}" class="btn-link mb-2 mt-5">edit</a>
+                    <div class="flex">
+                        {{-- button for edit director --}}
+                        <a href="{{ route('admin.directors.edit', $director) }}" class="btn-link mb-2 mt-5">edit</a>
+                        <form action=" {{ route('admin.directors.destroy', $director) }}" method="POST">
+                            {{-- delete method for form --}}
+                            @method('delete')
+
+                            {{-- requiered crsf token  --}}
+                            @csrf
+
+                            {{-- button for delete --}}
+                            <button type="submit" class="btn btn-danger ml-4 mt-5"
+                                onclick="return confirm('are you sure you want to delete')">Delete</button>
+                        </form>
+                    </div>
 
                     <span class="block mt-4 text-sm opacity-70">
                         {{ $director->created_at->diffForHumans() }}
