@@ -9,6 +9,9 @@ use App\Http\Controllers\User\MovieController as UserMovieController;
 // use production controller
 use App\Http\Controllers\Admin\ProductionController as AdminProductionController;
 
+// use director controller
+use App\Http\Controllers\Admin\DirectorController as AdminDirectorController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +44,9 @@ Route::resource("/admin/movies", AdminMovieController::class)->middleware(["auth
 
 // // creates all routes for the admin users productions
 Route::resource("/admin/productions", AdminProductionController::class)->middleware(["auth"])->names("admin.productions");
+
+// creates all routes for the admin users directors
+Route::resource("/admin/directors", AdminDirectorController::class)->middleware(["auth"])->names("admin.directors");
 
 // creates all routes for the ordinary user
 Route::resource("/user/movies", UserMovieController::class)->middleware(["auth"])->names("user.movies");
