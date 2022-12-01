@@ -30,7 +30,8 @@
                     <p>
                         {{ $director->bio }}
                     </p>
-
+                    {{-- button for edit director --}}
+                    <a href="{{ route('admin.directors.edit', $director) }}" class="btn-link mb-2 mt-5">edit</a>
 
                     <span class="block mt-4 text-sm opacity-70">
                         {{ $director->created_at->diffForHumans() }}
