@@ -63,18 +63,9 @@ class DirectorController extends Controller
         ]);
 
 
+        return to_route("admin.directors.index")->with("success", "your director was updated successfully");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -84,7 +75,15 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
-        //
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
+        // eager load director
+        $director = Director::where("id", $id )->firstOrFail();
+
+        // return form view with chosen director
+        return view("Admin.directors.edit")->with("director", $director); 
     }
 
     /**
@@ -94,9 +93,22 @@ class DirectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Director $director)
     {
-        //
+        // validate request
+        $request->validate([
+            "name" => "required|max:100",
+            "bio" => "required|max:120",
+        ]);
+
+        // update director in database
+        $director->update([
+            "name" => $request->name,
+            "bio" => $request->bio,
+        ]);
+
+        return to_route("admin.directors.index")->with("success", "your director was updated successfully");
+
     }
 
     /**
