@@ -21,7 +21,7 @@
             @endif
 
             <a href="{{ route('admin.movies.create') }}" class="btn-link btn-lg mb-2">+ New Movie</a>
-            <a href="{{ route('admin.productions.index') }}" class="btn-link btn-lg mb-2">Prodction Companies</a>
+            <a href="{{ route('admin.productions.index') }}" class="btn-link btn-lg mb-2">Production Companies</a>
             @forelse ($movies as $movie)
                 <div class="my-6 p-6 bg-white border-b border-gray-200 mt-6 shadow-sm sm:rounded-lg">
                     <h2 class="font-bold text-2xl">
