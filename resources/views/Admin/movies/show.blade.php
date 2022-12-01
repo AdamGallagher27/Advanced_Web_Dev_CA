@@ -72,7 +72,9 @@
                             </tr>
                         </table>
                     </li>
-                    <li>Production Company : {{ $production->title }}</li>
+                    {{-- if the production variable is an object echo the title --}}
+                    {{-- else echo "nothing" --}}
+                    <li>Production Company : {{ (is_object($production)) ? $production->title : "Nothing" }}</li>
                     <li>Budget: {{ $movie->budget }}</li>
                     <li>Box Office : {{ $movie->box_office }}</li>
                 </ul>
