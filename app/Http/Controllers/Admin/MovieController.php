@@ -221,7 +221,7 @@ class MovieController extends Controller
         $movie->delete();
 
         // return to view all movie route
-        return to_route("admin.movies.index");
+        return to_route("admin.movies.index")->with('success', 'your movie was deleted successfully');
 
     }
 }
