@@ -43,7 +43,7 @@ class ProductionController extends Controller
 
         // returns view for create form
         // before its sent to the store function
-        return view("Admin.productions.create");
+        return view("Admin.productions.create")->with('success', 'your production company was created successfully');
 
     }
 
@@ -110,7 +110,7 @@ class ProductionController extends Controller
             "title" => $request->title,
         ]);
     
-        return to_route("admin.productions.index")->with('success', 'your production was updated successfully');
+        return to_route("admin.productions.index")->with('success', 'your production company was updated successfully');
 
     }
 
@@ -131,7 +131,7 @@ class ProductionController extends Controller
         $production->delete();
 
         // return to view all movie route
-        return to_route("admin.productions.index");
+        return to_route("admin.productions.index")->with('success', 'your movie was deleted successfully');;
 
     }
 }
