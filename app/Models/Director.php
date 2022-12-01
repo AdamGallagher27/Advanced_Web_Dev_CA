@@ -14,4 +14,8 @@ class Director extends Model
         return $this->belongsToMany(Movie::class)->withTimestamps();
     }
 
+    
+    // prevents mass assignment error
+    protected $guarded = [];
+
 }
