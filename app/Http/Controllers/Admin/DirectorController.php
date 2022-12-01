@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Director;
+use Illuminate\Support\Facades\Auth;
+
 
 class DirectorController extends Controller
 {
@@ -14,7 +17,14 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        //
+        // auth user as the admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
+        // get all directors from datatabse
+        $directors = Director::all();
+
+        return view("admin.directors.index")->with("directors", $directors);
     }
 
     /**
