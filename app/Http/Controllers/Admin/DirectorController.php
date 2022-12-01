@@ -117,8 +117,16 @@ class DirectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Director $director)
     {
-        //
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
+        // delete selected director
+        $director->delete();
+
+        // return to view all director route
+        return to_route("admin.directors.index")->with('success', 'your director was deleted successfully');
     }
 }
