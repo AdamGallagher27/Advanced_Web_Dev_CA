@@ -66,15 +66,17 @@
                     <li>Directed By :
                         <table>
                             <tr>
-                                @foreach ($movie->directors as $director)
-                                    {{ $director->name }}                            
-                                @endforeach
+                                @forelse ($movie->directors as $director)
+                                    {{ $director->name }}
+                                    
+                                    @empty {{ "No Directors Yet" }}
+                                @endforelse
                             </tr>
                         </table>
                     </li>
                     {{-- if the production variable is an object echo the title --}}
                     {{-- else echo "nothing" --}}
-                    <li>Production Company : {{ (is_object($production)) ? $production->title : "Nothing" }}</li>
+                    <li>Production Company : {{ (is_object($production)) ? $production->title : "No Production Company Yet" }}</li>
                     <li>Budget: {{ $movie->budget }}</li>
                     <li>Box Office : {{ $movie->box_office }}</li>
                 </ul>
