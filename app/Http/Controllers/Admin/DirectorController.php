@@ -34,7 +34,12 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        //
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
+        return view("Admin.directors.create");
+
     }
 
     /**
@@ -45,7 +50,19 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate request
+        $request->validate([
+            "name" => "required|max:100",
+            "bio" => "required|max:120",
+        ]);
+
+        // create new director in db
+        $director = Director::create([
+            "name" => $request->name,
+            "bio" => $request->bio,
+        ]);
+
+
     }
 
     /**
