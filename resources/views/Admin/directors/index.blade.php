@@ -19,23 +19,25 @@
             {{-- used for debugging --}}
             {{-- {{ $directors }} --}}
 
+            {{-- create button --}}
+            <a href="{{ route('admin.directors.create') }}" class="btn-link mb-2 mt-5">create new director</a>
+
             @foreach ($directors as $director)
-                
-            <div class="my-6 p-6 bg-white border-b border-gray-200 mt-6 shadow-sm sm:rounded-lg">
-                <h2 class="font-bold text-2xl">
-                    {{ $director->name }}
-                </h2>
-                <p>
-                    {{ $director->bio }}
-                </p>
+                <div class="my-6 p-6 bg-white border-b border-gray-200 mt-6 shadow-sm sm:rounded-lg">
+                    <h2 class="font-bold text-2xl">
+                        {{ $director->name }}
+                    </h2>
+                    <p>
+                        {{ $director->bio }}
+                    </p>
 
-                <span class="block mt-4 text-sm opacity-70">
-                    {{ $director->created_at->diffForHumans() }}
-                </span>
-            </div>
 
+                    <span class="block mt-4 text-sm opacity-70">
+                        {{ $director->created_at->diffForHumans() }}
+                    </span>
+                </div>
             @endforeach
-            
+
         </div>
     </div>
 
