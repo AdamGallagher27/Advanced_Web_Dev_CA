@@ -28,9 +28,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+// dashboard redirects to home route
 Route::get('/dashboard', function () {
-    return view('/dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return redirect('/../home');
+})->middleware(['auth', 'verified'])->name("dashboard");
 
 
 require __DIR__.'/auth.php';
