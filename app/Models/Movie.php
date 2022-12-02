@@ -29,6 +29,12 @@ class Movie extends Model
         return $this->belongsTo(Production::class);
     }
 
+    // this is the relationship for movies / reviews
+    public function review() {
+        return $this->belongsTo(Review::class);
+    }
+
+
     // prevents mass assignment error
     protected $guarded = [];
 }
