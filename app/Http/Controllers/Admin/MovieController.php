@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Movie;
 use App\Models\User;
 use App\Models\Production;
+use App\Models\Review;
 
 
 
@@ -131,10 +132,11 @@ class MovieController extends Controller
         // get the selected production
         $production = Production::where("id", $movie->production_id)->first();
 
-
+        // varaible for reviews
+        $reviews = Review::where("movie_id", $movie->id)->get();
 
         // returns the show view with the movie / user variable
-        return view("admin/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production);
+        return view("admin/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production)->with("reviews", $reviews);
     }
 
     /**
