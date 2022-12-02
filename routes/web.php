@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 // have to get movie controller
 use App\Http\Controllers\Admin\MovieController as AdminMovieController;
 use App\Http\Controllers\User\MovieController as UserMovieController;
+use App\Http\Controllers\Reviewer\MovieController as ReviewerMovieController;
+
 
 // use production controller
 use App\Http\Controllers\Admin\ProductionController as AdminProductionController;
@@ -52,3 +54,6 @@ Route::resource("/admin/directors", AdminDirectorController::class)->middleware(
 
 // creates all routes for the ordinary user
 Route::resource("/user/movies", UserMovieController::class)->middleware(["auth"])->names("user.movies");
+
+// creates all routes for the reviewer user
+Route::resource("/reviewer/movies", ReviewerMovieController::class)->middleware(["auth"])->names("reviewer.movies");
