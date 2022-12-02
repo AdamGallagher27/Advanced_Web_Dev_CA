@@ -27,5 +27,11 @@ class RoleSeeder extends Seeder
         $role_user->description = "an Ordinary user";
         $role_user->save();
 
+        // create reviewer
+        $role_reviewer = new Role();
+        $role_reviewer->name = "reviewer";
+        $role_reviewer->description = "an reviewer user";
+        $role_reviewer->save();
+
     }
 }
