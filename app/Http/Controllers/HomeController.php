@@ -22,6 +22,9 @@ class HomeController extends Controller
         else if($user->hasRole("user")) {
             $home = "user.movies.index";
         }
+        else if($user->hasRole("reviewer")) {
+            $home = "reviewer.movies.index";
+        }
         return redirect()->route($home);
     }
     
