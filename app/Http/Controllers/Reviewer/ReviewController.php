@@ -26,43 +26,20 @@ class ReviewController extends Controller
      */
 
 
-
-    //  index function gets all movies from the database
-    public function index()
+    public function create( $movie_id)
     {
 
-        // variable to hold the movies from DB
-        $movies = Movie::latest("updated_at")->paginate(5);
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("reviewer");
 
-        // returning the view for index with the movies variable
-        return view("reviewer/movies/index")->with("movies", $movies);
-       
+
+
+        // returns view for create form
+        // before its sent to the store function
+        return redirect("Reviewer.reviews.create")->with("movie_id", $movie_id);
     }
 
-    
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-
-        // get movie from db with the id passed in
-        $movie = Movie::where("id", $id)->firstOrFail();
-        
-        // get the user from database
-        $user = User::where("id", $movie->user_id)->firstOrFail();
-
-        // varaible for production company
-        $production = Production::where("id", $movie->production_id)->firstOrFail();
-
-
-        // returns the show view with the movie variable
-        return view("reviewer/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production);
-    }
 
 
     
