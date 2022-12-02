@@ -62,6 +62,21 @@
                 {{-- going to make this the user who posted this movie --}}
                 <span class="block mt-4 text-sm opacity-70">Posted By : {{ $user->name }}</span>
             </div>
+
+            <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
+                <h2 class="font-bold text-2xl">
+                    reviews
+                </h2>
+
+                @foreach ($reviews as $review)
+                    <div class="">
+                        <h4>{{ $review->title }}</h4>
+                        <p>Description: {{ $review->description }}</p>
+                        <p>Rating: {{ $review->rating }}</p>                    
+                    </div>
+                @endforeach
+
+            </div>
         </div>
     </div>
 

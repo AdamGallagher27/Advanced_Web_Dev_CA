@@ -63,6 +63,24 @@
                 <span class="block mt-4 text-sm opacity-70">Posted By : {{ $user->name }}</span>
             </div>
         </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
+                <h2 class="font-bold text-2xl">
+                    reviews
+                </h2>
+    
+                @foreach ($reviews as $review)
+                    <div class="">
+                        <h4>{{ $review->title }}</h4>
+                        <p>Description: {{ $review->description }}</p>
+                        <p>Rating: {{ $review->rating }}</p>                    
+                    </div>
+                @endforeach
+    
+            </div>
+
+        </div>
+
     </div>
 
 </x-app-layout>
