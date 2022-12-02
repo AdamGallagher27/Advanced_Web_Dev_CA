@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\ProductionController as AdminProductionController
 // use director controller
 use App\Http\Controllers\Admin\DirectorController as AdminDirectorController;
 
+// use review controller
+use App\Http\Controllers\Reviewer\ReviewController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +46,10 @@ require __DIR__.'/auth.php';
 // home route
 Route::get("/home", [App\Http\Controllers\HomeController::class, "index"])->name("home.index");
 
+// creates all routes for the reviewer user
+Route::resource("/reviewer/reviews", ReviewController::class)->middleware(["auth"])->names("reviewer.reviews");
+
+
 // creates all routes for the admin users movies
 Route::resource("/admin/movies", AdminMovieController::class)->middleware(["auth"])->names("admin.movies");
 
@@ -57,3 +64,4 @@ Route::resource("/user/movies", UserMovieController::class)->middleware(["auth"]
 
 // creates all routes for the reviewer user
 Route::resource("/reviewer/movies", ReviewerMovieController::class)->middleware(["auth"])->names("reviewer.movies");
+
