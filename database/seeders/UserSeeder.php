@@ -23,6 +23,10 @@ class UserSeeder extends Seeder
         // user role from roles table
         $role_user = Role::where("name", "user")->first();
 
+        // user role from roles table
+        $role_reviewer = Role::where("name", "reviewer")->first();
+
+
         // create new admin
         $admin = new User();
         $admin->name = "Admin";
@@ -44,6 +48,16 @@ class UserSeeder extends Seeder
         // attach user role to the ordinary user 
         $user->roles()->attach($role_user);
 
+
+        // create new reviewer
+        $reviewer = new User();
+        $reviewer->name = "Reviewer";
+        $reviewer->email = "reviewer@gmail.com";
+        $reviewer->password = Hash::make("password");
+        $reviewer->save();
+
+        // attach reviewer role to the ordinary user 
+        $reviewer->roles()->attach($role_reviewer);
 
     }
 }
