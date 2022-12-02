@@ -67,9 +67,10 @@
                 <h2 class="font-bold text-2xl">
                     reviews
                 </h2>
+                <a href="{{ route('reviewer.reviews.create', ) }}"class="btn-link mb-2">Write A Review</a> 
 
                 @foreach ($reviews as $review)
-                    <div class="">
+                    <div class="border border-gray-200 mt-2 mb-2 pt-2 pb-2">
                         <h4>{{ $review->title }}</h4>
                         <p>Description: {{ $review->description }}</p>
                         <p>Rating: {{ $review->rating }}</p>                    
