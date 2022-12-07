@@ -72,7 +72,40 @@ class ReviewController extends Controller
         
     }
 
+    public function edit(Review $review)
+    {
+
+        return view('reviewer.reviews.edit')->with("review", $review);
+    }
+
+    public function update(Request $request,  Review $review)
+    {
+
+        // validating form input from edit()
+        // $request->validate( [
+        //     "title" => "required|max:120",
+        //     "description" => "required|max:200",
+        //     "rating" => "required",
+        //     "movie_id" => "required",
+        //     "user_id" => "required",
+
+        // ]);
+
+
+        // add new production company to databse
+        $review->update([
+            "title" => $request->title,
+            "description" => $request->description,
+            "rating" => $request->rating,
+            "movie_id" => $request->movie_id,
+            "user_id" => $request->user_id,
+            
+            
+        ]);
     
+        // return to movies show
+        return redirect("reviewer/movies/" . $request->movie_id)->with('success', 'your review was updated successfully');
+    }
 
     
 }
