@@ -82,14 +82,14 @@ class ReviewController extends Controller
     {
 
         // validating form input from edit()
-        // $request->validate( [
-        //     "title" => "required|max:120",
-        //     "description" => "required|max:200",
-        //     "rating" => "required",
-        //     "movie_id" => "required",
-        //     "user_id" => "required",
+        $request->validate( [
+            "title" => "required|max:120",
+            "description" => "required|max:200",
+            "rating" => "required",
+            "movie_id" => "required",
+            "user_id" => "required",
 
-        // ]);
+        ]);
 
 
         // add new production company to databse
@@ -99,12 +99,26 @@ class ReviewController extends Controller
             "rating" => $request->rating,
             "movie_id" => $request->movie_id,
             "user_id" => $request->user_id,
-            
-            
         ]);
     
         // return to movies show
         return redirect("reviewer/movies/" . $request->movie_id)->with('success', 'your review was updated successfully');
+    }
+
+    public function destroy(Review $review)
+    {
+        // authorize user as reviewer
+        $user = Auth::user();
+        $user->authorizeRoles("reviewer");
+
+        // get the id for the movie before its deleted
+        $movie_id = $review->movie_id;
+
+        // delete selected director
+        $review->delete();
+
+        // return to movies show
+        return redirect("reviewer/movies/" . $movie_id)->with('success', 'your review was deleted successfully');
     }
 
     
