@@ -1,3 +1,8 @@
+{{-- @php
+    dd($_GET);
+@endphp --}}
+
+
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -23,8 +28,11 @@
                     @enderror
                     <x-text-input type="text" name="rating" class=" mt-3 w-full " placeholder="rating" 
                     :value="@old('rating', $review->rating)"></x-text-input>
+                    {{-- movie id input --}}
+                    <input type="hidden" name="movie_id" value="{{ $movie_id }}"> 
 
                     <x-primary-button name="submit" type="Submit" class="mt-6">Save Production</x-primary-button>
+
                     <input type="hidden" name="_token" value="{{ Session::token() }}"> 
                 </form>
                 
