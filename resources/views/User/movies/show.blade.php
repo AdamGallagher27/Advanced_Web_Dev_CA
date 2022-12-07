@@ -50,9 +50,6 @@
                         <li>Budget: {{ $movie->budget }}</li>
                         <li>Box Office : {{ $movie->box_office }}</li>
                     </ul>
-                    <li>Production Company : {{ $production->title }}</li>
-                    <li>Budget: {{ $movie->budget }}</li>
-                    <li>Box Office : {{ $movie->box_office }}</li>
                 </ul>
                 <p class="mt-2">
                     Description : {{ $movie->description }}
