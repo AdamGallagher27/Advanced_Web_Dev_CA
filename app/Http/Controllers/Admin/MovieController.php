@@ -10,8 +10,7 @@ use App\Models\Movie;
 use App\Models\User;
 use App\Models\Production;
 use App\Models\Review;
-
-
+use Illuminate\Support\Facades\DB;
 
 class MovieController extends Controller
 {
@@ -225,6 +224,10 @@ class MovieController extends Controller
 
         // delete directors
         $movie->directors()->detach();
+
+        // delete every review for this film
+        DB::table('reviews')->where('movie_id', $movie->id)->delete();
+
 
         // delete selected movie
         $movie->delete();
