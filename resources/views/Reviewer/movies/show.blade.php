@@ -58,9 +58,6 @@
                         <li>Budget: {{ $movie->budget }}</li>
                         <li>Box Office : {{ $movie->box_office }}</li>
                     </ul>
-                    <li>Production Company : {{ $production->title }}</li>
-                    <li>Budget: {{ $movie->budget }}</li>
-                    <li>Box Office : {{ $movie->box_office }}</li>
                 </ul>
                 <p class="mt-2">
                     Description : {{ $movie->description }}
@@ -84,7 +81,21 @@
                         <p>Description: {{ $review->description }}</p>
                         <p>Rating: {{ $review->rating }}</p>    
                         
+                        {{-- update button --}}
                         <a href="{{ route('reviewer.reviews.edit', $review ), }}"class="btn-link mb-2 mt-3">Update Review</a> 
+                        
+                        {{-- delete button --}}
+                        <form action=" {{ route('reviewer.reviews.destroy', $review) }}" method="POST">
+                            {{-- delete method for form --}}
+                            @method('delete')
+
+                            {{-- requiered crsf token  --}}
+                            @csrf
+
+                            {{-- button for delete --}}
+                            <button type="submit" class="btn btn-danger mt-2"
+                                onclick="return confirm('are you sure you want to delete')">Delete Review</button>
+                        </form>
 
                         {{-- display the user who reviewed it --}}
                         <span class="block mt-4 text-sm opacity-70">Posted By : 
