@@ -7,6 +7,14 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            {{-- show success message for update / create --}}
+            @if (session('success'))
+                <div class="mb-4 px-4 py-2 bg-green-100 border border-green-200 text-green">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
                 {{-- testing to see if movie variable is passed in --}}
                 {{-- {{ $movie }} --}}
@@ -67,13 +75,22 @@
                 <h2 class="font-bold text-2xl">
                     reviews
                 </h2>
-                <a href="{{ route('reviewer.reviews.create', ) }}"class="btn-link mb-2">Write A Review</a> 
+                <a href="{{ route('reviewer.reviews.create', ['movie_id' => $movie->id] ), }}"class="btn-link mb-2">Write A Review</a> 
 
+                {{-- post every review for this movie --}}
                 @foreach ($reviews as $review)
-                    <div class="border border-gray-200 mt-2 mb-2 pt-2 pb-2">
+                    <div class="border border-gray-200 mt-2 mb-2 p-2">
                         <h4>{{ $review->title }}</h4>
                         <p>Description: {{ $review->description }}</p>
-                        <p>Rating: {{ $review->rating }}</p>                    
+                        <p>Rating: {{ $review->rating }}</p>          
+                        {{-- display the user who reviewed it --}}
+                        <span class="block mt-4 text-sm opacity-70">Posted By : 
+                            @foreach ($reviewers as $reviewer)    
+                                @if ($reviewer->id == $review->user_id)
+                                    {{ $reviewer->name }}
+                                @endif
+                            @endforeach
+                        </span>          
                     </div>
                 @endforeach
 
