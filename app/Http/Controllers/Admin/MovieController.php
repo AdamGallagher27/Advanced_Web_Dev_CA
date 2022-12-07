@@ -135,8 +135,15 @@ class MovieController extends Controller
         // varaible for reviews
         $reviews = Review::where("movie_id", $movie->id)->get();
 
+        // get all the users who have the reviewer role
+        $reviewers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'reviewer');
+            }
+        )->get();
+
         // returns the show view with the movie / user variable
-        return view("admin/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production)->with("reviews", $reviews);
+        return view("admin/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production)->with("reviews", $reviews)->with("reviewers", $reviewers);
     }
 
     /**
