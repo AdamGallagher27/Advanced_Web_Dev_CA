@@ -10,9 +10,9 @@ class Review extends Model
     use HasFactory;
     
     // this is the relationship for review and movies (1:M)
-    public function movies()
+    public function movie()
     {
-        return $this->hasMany(Movie::class);
+        return $this->belongsTo(Movie::class);
     }
 
     protected $guarded = [];
