@@ -69,13 +69,23 @@
                     reviews
                 </h2>
     
+                {{-- post every review for this movie --}}
                 @foreach ($reviews as $review)
-                    <div class="">
+                    <div class="border border-gray-200 mt-2 mb-2 p-2">
                         <h4>{{ $review->title }}</h4>
                         <p>Description: {{ $review->description }}</p>
-                        <p>Rating: {{ $review->rating }}</p>                    
+                        <p>Rating: {{ $review->rating }}</p>          
+                        {{-- display the user who reviewed it --}}
+                        <span class="block mt-4 text-sm opacity-70">Posted By : 
+                            @foreach ($reviewers as $reviewer)    
+                                @if ($reviewer->id == $review->user_id)
+                                    {{ $reviewer->name }}
+                                @endif
+                            @endforeach
+                        </span>          
                     </div>
                 @endforeach
+
     
             </div>
 
