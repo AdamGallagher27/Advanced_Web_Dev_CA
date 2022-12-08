@@ -28,7 +28,9 @@ class ReviewController extends Controller
 
     public function create()
     {
-
+        // authorize user as reviewer
+        $user = Auth::user();
+        $user->authorizeRoles("reviewer");
 
         // get the movie id from the get array
         $movie_id = $_GET["movie_id"];
@@ -74,6 +76,9 @@ class ReviewController extends Controller
 
     public function edit(Review $review)
     {
+        // authorize user as reviewer
+        $user = Auth::user();
+        $user->authorizeRoles("reviewer");
 
         return view('reviewer.reviews.edit')->with("review", $review);
     }

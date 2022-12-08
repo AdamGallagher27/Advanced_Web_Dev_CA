@@ -30,6 +30,10 @@ class MovieController extends Controller
     //  index function gets all movies from the database
     public function index()
     {
+        
+        // authorize user as reviewer
+        $user = Auth::user();
+        $user->authorizeRoles("reviewer");
 
         // variable to hold the movies from DB
         $movies = Movie::latest("updated_at")->paginate(5);
@@ -49,6 +53,9 @@ class MovieController extends Controller
      */
     public function show($id)
     {
+        // authorize user as reviewer
+        $user = Auth::user();
+        $user->authorizeRoles("reviewer");
 
         // get movie from db with the id passed in
         $movie = Movie::where("id", $id)->firstOrFail();

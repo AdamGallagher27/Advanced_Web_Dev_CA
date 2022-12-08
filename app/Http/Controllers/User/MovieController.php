@@ -29,6 +29,10 @@ class MovieController extends Controller
     public function index()
     {
 
+        // authorize user as ordinary user
+        $user = Auth::user();
+        $user->authorizeRoles("user");
+
         // variable to hold the movies from DB
         $movies = Movie::latest("updated_at")->paginate(5);
 
@@ -47,6 +51,9 @@ class MovieController extends Controller
      */
     public function show($id)
     {
+        // authorize user as ordinary user
+        $user = Auth::user();
+        $user->authorizeRoles("user");
 
         // get movie from db with the id passed in
         $movie = Movie::where("id", $id)->firstOrFail();

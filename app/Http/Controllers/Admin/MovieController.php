@@ -122,6 +122,10 @@ class MovieController extends Controller
     public function show($id)
     {
 
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
         // get movie from db with the id passed in
         $movie = Movie::where("id", $id)->firstOrFail();
 
@@ -153,6 +157,10 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
+
+        // authorize user as admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
 
         // get all the production companies
         $productions = Production::all();
