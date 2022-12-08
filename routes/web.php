@@ -48,6 +48,11 @@ require __DIR__.'/auth.php';
 // home route
 Route::get("/home", [App\Http\Controllers\HomeController::class, "index"])->name("home.index");
 
+// resource for extra method in reviewer movie controller
+Route::get('/reviewer/movies/likedMovies', 'App\Http\Controllers\Reviewer\MovieController@likedMovies')->name('reviewer.likedMovies');
+
+
+
 // creates all routes for the reviewer user
 Route::resource("/reviewer/reviews", ReviewController::class)->middleware(["auth"])->names("reviewer.reviews");
 
