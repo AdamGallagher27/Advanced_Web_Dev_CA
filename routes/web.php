@@ -52,6 +52,10 @@ Route::get("/home", [App\Http\Controllers\HomeController::class, "index"])->name
 Route::resource("/reviewer/reviews", ReviewController::class)->middleware(["auth"])->names("reviewer.reviews");
 
 
+// resource for extra method in admin movie controller
+Route::get('/admin/movies/likedMovies', 'App\Http\Controllers\Admin\MovieController@likedMovies')->name('admin.likedMovies');
+
+
 // creates all routes for the admin users movies
 Route::resource("/admin/movies", AdminMovieController::class)->middleware(["auth"])->names("admin.movies");
 
@@ -61,7 +65,7 @@ Route::resource("/admin/productions", AdminProductionController::class)->middlew
 // creates all routes for the admin users directors
 Route::resource("/admin/directors", AdminDirectorController::class)->middleware(["auth"])->names("admin.directors");
 
-// resource for extra method in ordinary user controller
+// resource for extra method in ordinary user movie controller
 Route::get('/user/movies/likedMovies', 'App\Http\Controllers\User\MovieController@likedMovies')->name('user.likedMovies');
 
 // creates all routes for the ordinary user
