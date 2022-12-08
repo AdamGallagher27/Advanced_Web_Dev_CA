@@ -123,8 +123,8 @@ class MovieController extends Controller
     {
 
         // authorize user as admin
-        $user = Auth::user();
-        $user->authorizeRoles("admin");
+        $currentUser = Auth::user();
+        $currentUser->authorizeRoles("admin");
 
         // get movie from db with the id passed in
         $movie = Movie::where("id", $id)->firstOrFail();
@@ -146,7 +146,10 @@ class MovieController extends Controller
         )->get();
 
         // returns the show view with the movie / user variable
-        return view("admin/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production)->with("reviews", $reviews)->with("reviewers", $reviewers);
+        return view("admin/movies/show")->with("movie", $movie)
+        ->with("user", $user)->with("production", $production)
+        ->with("reviews", $reviews)->with("reviewers", $reviewers)
+        ->with("currentUser", $currentUser);
     }
 
     /**
@@ -243,6 +246,25 @@ class MovieController extends Controller
         // return to view all movie route
         return to_route("admin.movies.index")->with('success', 'your movie was deleted successfully');
 
+    }
+
+    public function likedMovies()
+    {
+
+        // authorize user as an admin
+        $user = Auth::user();
+        $user->authorizeRoles("admin");
+
+        // get all the movies that the user liked
+        $movies = Movie::whereHas(
+            'likes', function($q)  use ($user){
+                $q->where('user_id', $user->id);
+            }
+        )->get();
+
+        // returning the view for index with the movies variable
+        return view("admin/movies/likedMovies")->with("movies", $movies);
+       
     }
 }
 
