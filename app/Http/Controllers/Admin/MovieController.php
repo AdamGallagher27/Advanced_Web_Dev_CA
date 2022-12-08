@@ -239,6 +239,9 @@ class MovieController extends Controller
         // delete every review for this film
         DB::table('reviews')->where('movie_id', $movie->id)->delete();
 
+        // delete every like for this film
+        DB::table('likes')->where('movie_id', $movie->id)->delete();
+
 
         // delete selected movie
         $movie->delete();
