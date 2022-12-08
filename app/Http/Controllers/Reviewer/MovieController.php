@@ -54,8 +54,8 @@ class MovieController extends Controller
     public function show($id)
     {
         // authorize user as reviewer
-        $user = Auth::user();
-        $user->authorizeRoles("reviewer");
+        $currentUser = Auth::user();
+        $currentUser->authorizeRoles("reviewer");
 
         // get movie from db with the id passed in
         $movie = Movie::where("id", $id)->firstOrFail();
@@ -78,11 +78,30 @@ class MovieController extends Controller
         
 
         // returns the show view with the movie variable
-        return view("reviewer/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production)->with("reviews", $reviews)->with("reviewers", $reviewers);
+        return view("reviewer/movies/show")->with("movie", $movie)
+        ->with("user", $user)->with("production", $production)->with("reviews", $reviews)
+        ->with("reviewers", $reviewers)->with("currentUser", $currentUser);
     }
 
 
-    
+    public function likedMovies()
+    {
+
+        // authorize user as reviewer
+        $user = Auth::user();
+        $user->authorizeRoles("reviewer");
+
+        // get all the movies that the user liked
+        $movies = Movie::whereHas(
+            'likes', function($q)  use ($user){
+                $q->where('user_id', $user->id);
+            }
+        )->get();
+
+        // returning the view for liked movies with the movies variable
+        return view("reviewer/movies/likedMovies")->with("movies", $movies);
+       
+    }
 
     
 }
