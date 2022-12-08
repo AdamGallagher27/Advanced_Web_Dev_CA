@@ -10,6 +10,8 @@ use App\Models\Movie;
 use App\Models\User;
 use App\Models\Production;
 use App\Models\Review;
+use App\Models\Like;
+
 
 
 
@@ -43,6 +45,7 @@ class MovieController extends Controller
 
     
 
+
     /**
      * Display the specified resource.
      *
@@ -52,8 +55,8 @@ class MovieController extends Controller
     public function show($id)
     {
         // authorize user as ordinary user
-        $user = Auth::user();
-        $user->authorizeRoles("user");
+        $currentUser = Auth::user();
+        $currentUser->authorizeRoles("user");
 
         // get movie from db with the id passed in
         $movie = Movie::where("id", $id)->firstOrFail();
@@ -76,7 +79,10 @@ class MovieController extends Controller
 
 
         // returns the show view with the movie variable
-        return view("user/movies/show")->with("movie", $movie)->with("user", $user)->with("production", $production)->with("reviews", $reviews)->with("reviewers", $reviewers);
+        return view("user/movies/show")->with("movie", $movie)
+        ->with("user", $user)->with("production", $production)
+        ->with("reviews", $reviews)->with("reviewers", $reviewers)
+        ->with("currentUser", $currentUser);
     }
 
     
