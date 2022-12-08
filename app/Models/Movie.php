@@ -34,6 +34,11 @@ class Movie extends Model
         return $this->hasMany(Review::class);
     }
 
+    // this is the relationship for movies / likes
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
+
     // prevents mass assignment error
     protected $guarded = [];
 }
