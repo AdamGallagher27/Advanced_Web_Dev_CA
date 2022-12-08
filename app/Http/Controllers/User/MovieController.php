@@ -86,5 +86,24 @@ class MovieController extends Controller
     }
 
     
+    public function likedMovies()
+    {
+
+        // authorize user as ordinary user
+        $user = Auth::user();
+        $user->authorizeRoles("user");
+
+        // get all the movies that the user liked
+        $movies = Movie::whereHas(
+            'likes', function($q)  use ($user){
+                $q->where('user_id', $user->id);
+            }
+        )->get();
+
+        // returning the view for index with the movies variable
+        return view("user/movies/likedMovies")->with("movies", $movies);
+       
+    }
+    
 }
 
