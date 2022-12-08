@@ -1,3 +1,5 @@
+@livewireStyles
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading tight">
@@ -66,6 +68,9 @@
                 <span class="block mt-4 text-sm opacity-70">{{ $movie->created_at->diffForHumans() }}</span>
                 {{-- going to make this the user who posted this movie --}}
                 <span class="block mt-4 text-sm opacity-70">Posted By : {{ $user->name }}</span>
+
+                {{-- live wire component for the like button --}}
+                <livewire:like-button :movie="$movie" :currentUser="$currentUser"  /> 
             </div>
 
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
@@ -111,5 +116,5 @@
             </div>
         </div>
     </div>
-
+    @livewireScripts
 </x-app-layout>
