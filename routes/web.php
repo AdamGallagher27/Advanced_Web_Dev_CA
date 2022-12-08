@@ -43,6 +43,8 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 
+
+
 // home route
 Route::get("/home", [App\Http\Controllers\HomeController::class, "index"])->name("home.index");
 
@@ -58,6 +60,9 @@ Route::resource("/admin/productions", AdminProductionController::class)->middlew
 
 // creates all routes for the admin users directors
 Route::resource("/admin/directors", AdminDirectorController::class)->middleware(["auth"])->names("admin.directors");
+
+// resource for extra method in ordinary user controller
+Route::get('/user/movies/likedMovies', 'App\Http\Controllers\User\MovieController@likedMovies')->name('user.likedMovies');
 
 // creates all routes for the ordinary user
 Route::resource("/user/movies", UserMovieController::class)->middleware(["auth"])->names("user.movies");
