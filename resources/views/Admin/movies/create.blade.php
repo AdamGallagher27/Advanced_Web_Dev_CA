@@ -10,9 +10,9 @@
                     @error('title')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
-                    <x-text-input type="text" name="title" class="w-full " placeholder="Title"></x-text-input>
+                    <x-text-input type="text" name="title" class="w-full " placeholder="Title" :value="@old('title', $movie->title)" ></x-text-input>
 
-                    @error('director')
+                    @error('directors')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
                     {{-- <x-text-input type="text" name="director" class="w-full " placeholder="Director"></x-text-input> --}}
@@ -30,17 +30,17 @@
                     @error('description')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
-                    <x-textarea name="description" rows="10" class="w-full" placeholder="Description..."></x-textarea>
+                    <x-textarea name="description" rows="10" class="w-full" placeholder="Description..." :value="@old('description', $movie->description)"></x-textarea>
 
                     @error('budget')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
-                    <x-text-input type="text" name="budget" class="w-full" placeholder="budget"></x-text-input>
+                    <x-text-input type="text" name="budget" class="w-full" placeholder="budget" :value="@old('budget', $movie->budget)"></x-text-input>
 
                     @error('box_office')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
-                    <x-text-input type="text" name="box_office" class="w-full " placeholder="box office"></x-text-input>
+                    <x-text-input type="text" name="box_office" class="w-full " placeholder="box office" :value="@old('box_office', $movie->box_office)"></x-text-input>
 
 
                     {{-- productions drop down --}}
